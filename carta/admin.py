@@ -11,8 +11,12 @@ class CategoriaAdmin(admin.ModelAdmin):
 		return Plato.objects.filter(categoria=obj.id).count()
 
 class InsumoInline(admin.TabularInline):
+	readonly_fields = ['unidad']
 	model = Insumo
 	extra = 5
+
+	def unidad(self,obj):
+		return obj.producto.unidad
 
 class PlatoAdmin(admin.ModelAdmin):
 	inlines = [InsumoInline]

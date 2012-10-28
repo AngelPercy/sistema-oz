@@ -1,8 +1,11 @@
+# Requerido
 from django.contrib import admin
-from compras.models import Documento
+# Si mismo
 from inventario.models import Categoria
 from inventario.models import Medida
 from inventario.models import Producto
+# Referencia
+from compras.models import Cosa
 
 class CategoriaAdmin(admin.ModelAdmin):
 	list_display = ('nombre', 'descripcion', 'padre', 'total')
@@ -14,7 +17,12 @@ class ProductoAdmin(admin.ModelAdmin):
 	list_display = ('nombre', 'categoria', 'actual', 'unidad', 'minimo')
 
 	def actual(self, obj):
-		total = 0
+		suma = 0
+		Insumos = Cosa.objects.filter(producto=obj.id)
+		for item in Insumos:
+			suma = suma + item.cantidad
+		resta = 0
+		total = suma - resta
 		return total
 
 

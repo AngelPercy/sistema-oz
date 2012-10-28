@@ -15,7 +15,6 @@ class Mesa(models.Model):
 	descripcion = models.TextField(blank=True,null=True)
 	capacidad   = models.IntegerField()
 	zona        = models.ForeignKey(Zona)
-	disponible  = models.BooleanField()
 	fecha_pub   = models.DateField(auto_now=True,auto_now_add=True)
 	encargado   = models.ForeignKey(User)
 

@@ -5,6 +5,7 @@ from carta.models import Plato
 class Comanda(models.Model):
 	mesa      = models.ForeignKey(Mesa)
 	personas  = models.IntegerField()
+	activa    = models.BooleanField(default=True)
 	pub_fecha = models.DateTimeField(auto_now=True,auto_now_add=True)
 
 class Pedido(models.Model):

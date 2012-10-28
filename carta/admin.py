@@ -1,8 +1,11 @@
-from inventario.models import Producto
-from carta.models import Categoria
-from carta.models import Plato
-from carta.models import Insumo
+# Requerido
 from django.contrib import admin
+# Si mismo
+from carta.models import Categoria
+from carta.models import Producto
+from carta.models import Insumo
+# Referencia
+from inventario.models import Producto
 
 class CategoriaAdmin(admin.ModelAdmin):
 	list_display = ('nombre', 'descripcion', 'superior', 'total')

@@ -17,13 +17,13 @@ class Medida(models.Model):
 	def __unicode__(self):
 		return self.nombre
 
-class Producto(models.Model):
+class Insumo(models.Model):
 	nombre      = models.CharField(max_length=200)
 	descripcion = models.TextField(blank=True, null=True)
 	categoria   = models.ForeignKey(Categoria)
 	unidad      = models.ForeignKey(Medida)
-	fecha_pub   = models.DateField(auto_now=True,auto_now_add=True)
-	minimo      = models.IntegerField(blank=True,null=True)
+	fecha       = models.DateField(auto_now=True,auto_now_add=True)
+	minimo      = models.DecimalField(max_digits=5,decimal_places=3,blank=True,null=True)
 
 	def __unicode__(self):
 		return self.nombre

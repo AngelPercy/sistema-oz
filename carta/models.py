@@ -22,6 +22,6 @@ class Plato(models.Model):
 
 class Insumo(models.Model):
 	producto = models.ForeignKey(Producto)
-	cantidad = models.DecimalField(max_digits=5,decimal_places=2)
+	cantidad = models.DecimalField(max_digits=5,decimal_places=3)
 	opcional = models.BooleanField()
 	plato    = models.ForeignKey(Plato)

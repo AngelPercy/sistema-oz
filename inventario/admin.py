@@ -1,5 +1,5 @@
 from django.contrib import admin
-from compras.models import Compra
+from compras.models import Documento
 from inventario.models import Categoria
 from inventario.models import Medida
 from inventario.models import Producto
@@ -15,12 +15,6 @@ class ProductoAdmin(admin.ModelAdmin):
 
 	def actual(self, obj):
 		total = 0
-		Compras = Compra.objects.filter(producto=obj.id)
-		for item in Compras:
-			total = total + item.cantidad
-		#Ventas  = Compra.objects.filter(producto=obj.id)
-		#for item in Ventas:
-		#	total = total + item.cantidad
 		return total
 
 

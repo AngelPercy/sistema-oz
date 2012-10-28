@@ -1,24 +1,22 @@
 from inventario.models import Producto
-from compras.models import Compra
-from compras.models import Documento
+from compras.models import Insumo
+from compras.models import Comprobante
 from django.contrib import admin
 
-class DocumentoInline(admin.TabularInline):
-	model = Documento
+class InsumoInline(admin.TabularInline):
+	readonly_fields = ['unidad','total']
+	model = Insumo
 	extra = 1
 
-class CompraAdmin(admin.ModelAdmin):
-	inlines = [DocumentoInline]
-	list_display = ('producto', 'cantidad', 'unidad', 'total')
+	def total(self, obj):
+		total = obj.precio_uni * obj.cantidad
+		return total
 
 	def unidad(self, obj):
 		return obj.producto.unidad
 
-	def total(self, obj):
-		total = 0
-		Documentos = Documento.objects.filter(compra=obj.producto)
-		for item in Documentos:
-			total = item.monto+total
-		return total
+class ComprobanteAdmin(admin.ModelAdmin):
+	inlines = [InsumoInline]
+	list_display = ('tipo', 'numero', 'fecha', 'moneda')
 
-admin.site.register(Compra, CompraAdmin)
+admin.site.register(Comprobante, ComprobanteAdmin)

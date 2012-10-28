@@ -1,13 +1,7 @@
 from django.db import models
 from inventario.models import Producto
 
-class Compra(models.Model):
-	producto  = models.ForeignKey(Producto)
-	cantidad  = models.DecimalField(max_digits=5,decimal_places=3)
-	detalle   = models.TextField(blank=True,null=True)
-	fecha_pub = models.DateTimeField(auto_now=True,auto_now_add=True)
-
-class Documento(models.Model):
+class Comprobante(models.Model):
 	TIPO_OPCIONES = (
 		('BOL', 'Boleta'),
 		('FAC', 'Factura'),
@@ -21,5 +15,11 @@ class Documento(models.Model):
 	numero  = models.CharField(max_length=20)
 	fecha   = models.DateField()
 	moneda  = models.CharField(max_length=3,choices=MONEDAS_OPCIONES, default='PEN')
-	monto   = models.DecimalField(max_digits=5,decimal_places=2)
-	compra  = models.ForeignKey(Compra)
+
+class Insumo(models.Model):
+	producto    = models.ForeignKey(Producto)
+	cantidad    = models.DecimalField(max_digits=5,decimal_places=3,default=1)
+	detalle     = models.TextField(blank=True,null=True)
+	precio_uni  = models.DecimalField(max_digits=5,decimal_places=2)
+	fecha_pub   = models.DateTimeField(auto_now=True,auto_now_add=True)
+	comprobante = models.ForeignKey(Comprobante)

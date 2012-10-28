@@ -25,3 +25,6 @@ class Insumo(models.Model):
 	cantidad = models.DecimalField(max_digits=5,decimal_places=3)
 	opcional = models.BooleanField()
 	plato    = models.ForeignKey(Plato)
+
+	def __unicode__(self):
+		return ('%s %d') % (self.producto, self.cantidad)

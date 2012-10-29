@@ -2,14 +2,12 @@
 from django.contrib import admin
 # Si mismo
 from compras.models import Comprobante
-from compras.models import Insumo
-# Referencia
-from inventario.models import Producto
+from compras.models import Elemento
 
-class CosaInline(admin.TabularInline):
+class ElementoInline(admin.TabularInline):
 	readonly_fields = ['unidad', 'precio_unitario']
-	fields = ('producto', 'cantidad', 'unidad', 'detalle', 'precio_unitario', 'precio')
-	model = Cosa
+	fields = ('articulo', 'cantidad', 'unidad', 'detalle', 'precio_unitario', 'precio')
+	model = Elemento
 	extra = 3
 
 	def precio_unitario(self,obj):
@@ -20,7 +18,10 @@ class CosaInline(admin.TabularInline):
 		return obj.producto.unidad
 
 class ComprobanteAdmin(admin.ModelAdmin):
-	inlines = [CosaInline]
-	list_display = ('tipo', 'numero', 'fecha', 'moneda')
+	inlines = [ElementoInline]
+	list_display = ('fecha', 'tipo', 'serie', 'numero', 'cliente', 'monto')
+
+	def monto(self,obj):
+		return 'Precio Total'
 
 admin.site.register(Comprobante, ComprobanteAdmin)

@@ -1,17 +1,25 @@
 from django.db import models
+from django.contrib.auth.models import User
 from local.models import Mesa
 from carta.models import Plato
 
 class Comanda(models.Model):
 	mesa      = models.ForeignKey(Mesa)
+	encargado = models.ForeignKey(User)
 	personas  = models.IntegerField()
 	activa    = models.BooleanField(default=True)
-	pub_fecha = models.DateTimeField(auto_now=True,auto_now_add=True)
+	fecha     = models.DateTimeField(auto_now=True,auto_now_add=True)
+
+	def __unicode__(self):
+		return ('%s con %d personas') % (self.mesa, self.personas)
 
 class Pedido(models.Model):
 	plato    = models.ForeignKey(Plato)
 	cantidad = models.IntegerField(default=1)
 	comanda  = models.ForeignKey(Comanda)
+
+	def __unicode__(self):
+		return ('%d platos de %s') % (self.cantidad, seld.plato)
 
 class Comprobante(models.Model):
 	TIPO_OPCIONES = (
@@ -20,6 +28,7 @@ class Comprobante(models.Model):
 	)
 	tipo      = models.CharField(max_length=3,choices=TIPO_OPCIONES,default='BOL')
 	descuento = models.DecimalField(max_digits=5,decimal_places=2,default=0,blank=True,null=True)
+	propina   = models.DecimalField(max_digits=5,decimal_places=2,blank=True,null=True)
 	igv       = models.DecimalField(max_digits=5,decimal_places=2,default=0)
 	subtotal  = models.DecimalField(max_digits=5,decimal_places=2,default=0)
 	total     = models.DecimalField(max_digits=5,decimal_places=2,default=0)

@@ -21,7 +21,7 @@ class ComprobanteInline(admin.TabularInline):
 
 class ComandaAdmin(admin.ModelAdmin):
 	inlines = [PedidoInline, ComprobanteInline]
-	list_display = ('activa', 'mesa', 'encargado', 'pedidos', 'pub_fecha', 'total')
+	list_display = ('activa', 'mesa', 'encargado', 'pedidos', 'fecha', 'total')
 
 
 	def total(self,obj):

@@ -19,7 +19,7 @@ class Pedido(models.Model):
 	comanda  = models.ForeignKey(Comanda)
 
 	def __unicode__(self):
-		return ('%d platos de %s') % (self.cantidad, seld.plato)
+		return ('%d platos de %s') % (self.cantidad, self.plato)
 
 class Comprobante(models.Model):
 	TIPO_OPCIONES = (

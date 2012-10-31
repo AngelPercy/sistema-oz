@@ -27,9 +27,15 @@ class Comprobante(models.Model):
 	cliente = models.ForeignKey(Cliente)
 	moneda  = models.CharField(max_length=3,choices=MONEDAS_OPCIONES,default='PEN')
 
+	def __unicode__(self):
+		return 'Comprobante'
+
 class Elemento(models.Model):
 	articulo    = models.ForeignKey(Articulo)
 	cantidad    = models.DecimalField(max_digits=5,decimal_places=3,default=1)
 	detalle     = models.CharField(max_length=250,blank=True,null=True)
 	precio      = models.DecimalField(max_digits=5,decimal_places=2)
 	comprobante = models.ForeignKey(Comprobante)
+
+	def __unicode__(self):
+		return ('%d de %s') % (self.cantidad, self.articulo)

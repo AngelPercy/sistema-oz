@@ -19,7 +19,10 @@ class ElementoInline(admin.TabularInline):
 
 class ComprobanteAdmin(admin.ModelAdmin):
 	inlines = [ElementoInline]
-	list_display = ('fecha', 'tipo', 'serie', 'numero', 'cliente', 'monto')
+	list_display = ('fecha', 'tipo', 'serie', 'numero', 'cliente', 'elementos','monto')
+
+	def elementos(self,obj):
+		return Elemento.objects.filter(articulo=obj.id).count()
 
 	def monto(self,obj):
 		total = 0

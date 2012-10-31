@@ -22,6 +22,10 @@ class ComprobanteAdmin(admin.ModelAdmin):
 	list_display = ('fecha', 'tipo', 'serie', 'numero', 'cliente', 'monto')
 
 	def monto(self,obj):
-		return 'Precio Total'
+		total = 0
+		Elementos = Elemento.objects.filter(articulo=obj.id)
+		for item in Elementos:
+			total = total + item.precio
+		return total
 
 admin.site.register(Comprobante, ComprobanteAdmin)

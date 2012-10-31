@@ -7,7 +7,12 @@ from ventas.models import Comanda
 class ZonaAdmin(admin.ModelAdmin):
 	list_display = ('nombre', 'descripcion')
 
+class ComandaInline(admin.TabularInline):
+	model = Comanda
+	extra = 0
+
 class MesaAdmin(admin.ModelAdmin):
+	inlines = [ComandaInline]	
 	list_display = ('nombre', 'capacidad', 'zona', 'disponible', 'encargado')
 
 	def disponible(self,obj):
@@ -19,7 +24,13 @@ class MesaAdmin(admin.ModelAdmin):
 
 
 	def encargado(self,obj):
-		return "Alguien"
+		Conteo = Comanda.objects.filter(mesa=obj.id,activa=True).count()
+		if Conteo > 0:
+			Comandas = Comanda.objects.filter(mesa=obj.id,activa=True)
+			for item in Comandas:
+				return item.encargado
+		else:
+			return '(Nada)'
 
 admin.site.register(Zona, ZonaAdmin)
 admin.site.register(Mesa, MesaAdmin)

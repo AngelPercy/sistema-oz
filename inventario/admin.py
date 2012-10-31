@@ -7,7 +7,12 @@ from inventario.models import Articulo
 # Referencia
 from compras.models import Elemento
 
+class ArticuloInline(admin.TabularInline):
+	model = Articulo
+	extra = 0
+
 class CategoriaAdmin(admin.ModelAdmin):
+	inlines = [ArticuloInline]
 	list_display = ('nombre', 'descripcion', 'padre', 'total')
 
 	def total(self, obj):

@@ -1,10 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 from local.models import Mesa
+from local.models import Cliente
 from carta.models import Plato
 
 class Comanda(models.Model):
 	mesa      = models.ForeignKey(Mesa)
+	cliente   = models.ForeignKey(Cliente)
 	encargado = models.ForeignKey(User)
 	personas  = models.IntegerField()
 	activa    = models.BooleanField(default=True)
